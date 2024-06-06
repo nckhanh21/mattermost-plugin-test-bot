@@ -5,7 +5,12 @@ const path = require('path');
 const PLUGIN_ID = require('../plugin.json').id;
 
 const NPM_TARGET = process.env.npm_lifecycle_event; //eslint-disable-line no-process-env
-const isDev = NPM_TARGET === 'debug' || NPM_TARGET === 'debug:watch';
+let mode = 'production';
+let devtool = '';
+if (NPM_TARGET === 'debug' || NPM_TARGET === 'debug:watch') {
+    mode = 'development';
+    devtool = 'source-map';
+}
 
 const plugins = [];
 if (NPM_TARGET === 'build:watch' || NPM_TARGET === 'debug:watch') {
@@ -29,14 +34,11 @@ if (NPM_TARGET === 'build:watch' || NPM_TARGET === 'debug:watch') {
     });
 }
 
-const config = {
+module.exports = {
     entry: [
-        './src/index.tsx',
+        './src/index.js',
     ],
     resolve: {
-        alias: {
-            '@': path.resolve(__dirname, 'src'),
-        },
         modules: [
             'src',
             'node_modules',
@@ -59,7 +61,7 @@ const config = {
                 },
             },
             {
-                test: /\.(scss|css)$/,
+                test: /\.scss$/,
                 use: [
                     'style-loader',
                     {
@@ -92,12 +94,7 @@ const config = {
         publicPath: '/',
         filename: 'main.js',
     },
-    mode: (isDev) ? 'eval-source-map' : 'production',
+    devtool,
+    mode,
     plugins,
 };
-
-if (isDev) {
-    Object.assign(config, {devtool: 'eval-source-map'});
-}
-
-module.exports = config;
