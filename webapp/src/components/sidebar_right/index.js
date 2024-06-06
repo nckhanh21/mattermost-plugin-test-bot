@@ -6,7 +6,7 @@ import {bindActionCreators} from 'redux';
 
 import {getIssues, getInIssues, getOutIssues, getSiteURL, getTodoToast} from '../../selectors';
 // import {remove, list, openAssigneeModal, openAddCard, closeAddCard, complete, bump, accept, telemetry, setRhsVisible} from '../../actions';
-import {list, setRhsVisible, openAddCard, closeAddCard} from '../../actions';
+import {list, setRhsVisible, openAddCard, closeAddCard, notify} from '../../actions';
 
 import SidebarRight from './sidebar_right.jsx';
 
@@ -31,6 +31,7 @@ function mapDispatchToProps(dispatch) {
             list,
             openAddCard,
             closeAddCard,
+            notify,
             // openAssigneeModal,
             // telemetry,
             setVisible: setRhsVisible,

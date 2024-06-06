@@ -74,6 +74,7 @@ export default class SidebarRight extends React.PureComponent {
             accept: PropTypes.func.isRequired,
             bump: PropTypes.func.isRequired,
             list: PropTypes.func.isRequired,
+            notify: PropTypes.func.isRequired,
             openAddCard: PropTypes.func.isRequired,
             closeAddCard: PropTypes.func.isRequired,
             openAssigneeModal: PropTypes.func.isRequired,
@@ -155,6 +156,15 @@ export default class SidebarRight extends React.PureComponent {
 
     addTodoItem() {
         this.props.actions.openAddCard('');
+        // this.props.actions.notify();
+        // this.props.actions.openAssigneeModal('');
+        // this.props.setIsOpenAddModal(true);
+        // this.setState({ isOpenAddModal: true });
+    }
+
+    addNoti() {
+        // this.props.actions.openAddCard('');
+        this.props.actions.notify();
         // this.props.actions.openAssigneeModal('');
         // this.props.setIsOpenAddModal(true);
         // this.setState({ isOpenAddModal: true });
@@ -337,7 +347,10 @@ export default class SidebarRight extends React.PureComponent {
                                     </Tooltip>
                                 )}
                             >
-                                <div>
+                                <div style={{
+                                    display: 'flex',
+                                    gap: '10px',
+                                }}>
                                     <Button
                                         emphasis='primary'
                                         icon={<CompassIcon icon='plus' />}
@@ -350,6 +363,19 @@ export default class SidebarRight extends React.PureComponent {
                                         }}
                                     >
                                         {addButton}
+                                    </Button>
+                                    <Button
+                                        emphasis='primary'
+                                        icon={<CompassIcon icon='plus' />}
+                                        size='small'
+                                        onClick={() => {
+                                            // this.props.actions.telemetry('rhs_add', {
+                                            //     list: this.state.list,
+                                            // });
+                                            this.addNoti();
+                                        }}
+                                    >
+                                        Notification
                                     </Button>
                                 </div>
                             </OverlayTrigger>
