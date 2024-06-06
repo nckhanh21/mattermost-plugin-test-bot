@@ -109,6 +109,7 @@ func (p *Plugin) initializeAPI() {
 	p.router.Use(p.withRecovery)
 
 	p.router.HandleFunc("/add", p.checkAuth(p.handleAdd)).Methods(http.MethodPost)
+	p.router.HandleFunc("/noti-channel", p.checkAuth(p.handleNotiChannel)).Methods(http.MethodPost)
 	p.router.HandleFunc("/list", p.checkAuth(p.handleList)).Methods(http.MethodGet)
 	p.router.HandleFunc("/remove", p.checkAuth(p.handleRemove)).Methods(http.MethodPost)
 	p.router.HandleFunc("/complete", p.checkAuth(p.handleComplete)).Methods(http.MethodPost)
@@ -174,6 +175,13 @@ func (p *Plugin) handleTelemetry(w http.ResponseWriter, r *http.Request) {
 	if telemetryRequest.Event != "" {
 		p.trackFrontend(userID, telemetryRequest.Event, telemetryRequest.Properties)
 	}
+}
+
+// handleNotiChannel handles send a noti to a channel with a message
+func (p *Plugin) handleNotiChannel(w http.ResponseWriter, r *http.Request) {
+	userID := r.Header.Get("Mattermost-User-ID")
+	message := "Hello, this is a notification from Book plugin"
+	p.PostBotDM(userID, message)
 }
 
 func (p *Plugin) handleAdd(w http.ResponseWriter, r *http.Request) {

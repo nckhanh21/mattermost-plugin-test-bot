@@ -174,6 +174,13 @@ export const list = (reminder = false, listName = 'my') => async (dispatch, getS
     return {data};
 };
 
+export const notify = () => async (dispatch, getState) => {
+    await fetch(getPluginServerRoute(getState()) + '/noti-channel', Client4.getOptions({
+        method: 'post',
+        body: JSON.stringify({}),
+    }));
+}
+
 // export const remove = (id) => async (dispatch, getState) => {
 //     await fetch(getPluginServerRoute(getState()) + '/remove', Client4.getOptions({
 //         method: 'post',

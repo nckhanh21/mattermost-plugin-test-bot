@@ -186,7 +186,7 @@ export default class SidebarRight extends React.PureComponent {
             case Editor:
                 todos = this.props.outTodos || [];
                 listHeading = 'Danh sách biên tập';
-                // addButton = 'Request a Todo from someone';
+                addButton = 'Request a Todo from someone';
                 break;
             case Synthetic:
                 todos = this.props.todos || [];
